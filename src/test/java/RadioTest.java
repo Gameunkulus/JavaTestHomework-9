@@ -4,6 +4,13 @@ import org.junit.jupiter.api.Test;
 public class RadioTest {
 
     @Test
+    void setNumRadFrequencyTest(){
+        Radio radio = new Radio(20);
+        radio.setNumRadFrequency(15);
+        Assertions.assertEquals(radio.getNumRadFrequency(),15);
+    }
+
+    @Test
     void setRadFrequencyUpperTest() {
         Radio radio = new Radio();
         int expected = 0;

@@ -1,13 +1,21 @@
 public class Radio {
     private int radFrequency = 0;
     private int radVolume = 0;
+    private int numRadFrequency = 10;
+
+    public Radio(int numRadFrequency) {
+        this.numRadFrequency = numRadFrequency;
+    }
+
+    public Radio(){}
 
     public int getRadFrequency() {
         return radFrequency;
     }
 
     public int setRadFrequency(int freq) {
-        if (freq >= 0 && freq <= 9) {
+        int maxRadFrequency = getNumRadFrequency();
+        if (freq >= 0 && freq < maxRadFrequency) {
             radFrequency = freq;
         }
         return radFrequency;
@@ -15,18 +23,18 @@ public class Radio {
 
     public void next() {
         int freq = getRadFrequency();
-        if (freq == 9) {
-            setRadFrequency(0);
-        } else {
-            freq++;
+        freq++;
+        if (freq < getNumRadFrequency()) {
             setRadFrequency(freq);
+        } else {
+            setRadFrequency(0);
         }
     }
 
     public void prev() {
         int freq = getRadFrequency();
         if (freq == 0) {
-            setRadFrequency(9);
+            setRadFrequency(getNumRadFrequency() - 1);
         } else {
             setRadFrequency(freq - 1);
         }
@@ -43,6 +51,15 @@ public class Radio {
         return radFrequency;
     }
 
+    public int getNumRadFrequency() {
+        return numRadFrequency;
+    }
+
+    public int setNumRadFrequency(int numRadFrequency) {
+        this.numRadFrequency = numRadFrequency;
+        return this.numRadFrequency;
+    }
+
     public void increaseVolume() {
         int volume = getRadVolume();
         if (volume < 100) {
@@ -56,5 +73,5 @@ public class Radio {
             setRadVolume(volume - 1);
         }
     }
-
 }
+
