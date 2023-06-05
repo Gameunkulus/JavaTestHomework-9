@@ -1,25 +1,17 @@
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Radio {
-    private int radFrequency = 0;
-    private int radVolume = 0;
+    private int radFrequencyMin = 0;
+    private int radFrequency = radFrequencyMin;
+    private int radVolumeMin = 0;
+    private int radVolume = radVolumeMin;
+    private int radVolumeMax = 100;
     private int numRadFrequency = 10;
-
-    public Radio(int numRadFrequency) {
-        this.numRadFrequency = numRadFrequency;
-    }
-
-    public Radio(){}
-
-    public int getRadFrequency() {
-        return radFrequency;
-    }
-
-    public int setRadFrequency(int freq) {
-        int maxRadFrequency = getNumRadFrequency();
-        if (freq >= 0 && freq < maxRadFrequency) {
-            radFrequency = freq;
-        }
-        return radFrequency;
-    }
 
     public void next() {
         int freq = getRadFrequency();
@@ -27,51 +19,33 @@ public class Radio {
         if (freq < getNumRadFrequency()) {
             setRadFrequency(freq);
         } else {
-            setRadFrequency(0);
+            setRadFrequency(getRadFrequencyMin());
         }
     }
 
     public void prev() {
         int freq = getRadFrequency();
-        if (freq == 0) {
+        if (freq == getRadFrequencyMin()) {
             setRadFrequency(getNumRadFrequency() - 1);
         } else {
             setRadFrequency(freq - 1);
         }
     }
 
-    public int getRadVolume() {
-        return radVolume;
-    }
-
-    public int setRadVolume(int volume) {
-        if (volume >= 0 && volume <= 100) {
-            radVolume = volume;
-        }
-        return radFrequency;
-    }
-
-    public int getNumRadFrequency() {
-        return numRadFrequency;
-    }
-
-    public int setNumRadFrequency(int numRadFrequency) {
-        this.numRadFrequency = numRadFrequency;
-        return this.numRadFrequency;
-    }
-
     public void increaseVolume() {
         int volume = getRadVolume();
-        if (volume < 100) {
+        if (volume < getRadVolumeMax()) {
             setRadVolume(volume + 1);
         }
     }
-
     public void decreaseVolume() {
         int volume = getRadVolume();
-        if (volume > 1) {
+        if (volume > getRadVolumeMin()) {
             setRadVolume(volume - 1);
         }
     }
+
+
+
 }
 
