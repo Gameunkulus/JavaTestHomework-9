@@ -1,60 +1,51 @@
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Radio {
-    private int radFrequency = 0;
-    private int radVolume = 0;
-
-    public int getRadFrequency() {
-        return radFrequency;
-    }
-
-    public int setRadFrequency(int freq) {
-        if (freq >= 0 && freq <= 9) {
-            radFrequency = freq;
-        }
-        return radFrequency;
-    }
+    private int radFrequencyMin = 0;
+    private int radFrequency = radFrequencyMin;
+    private int radVolumeMin = 0;
+    private int radVolume = radVolumeMin;
+    private int radVolumeMax = 100;
+    private int numRadFrequency = 10;
 
     public void next() {
         int freq = getRadFrequency();
-        if (freq == 9) {
-            setRadFrequency(0);
-        } else {
-            freq++;
+        freq++;
+        if (freq < getNumRadFrequency()) {
             setRadFrequency(freq);
+        } else {
+            setRadFrequency(getRadFrequencyMin());
         }
     }
 
     public void prev() {
         int freq = getRadFrequency();
-        if (freq == 0) {
-            setRadFrequency(9);
+        if (freq == getRadFrequencyMin()) {
+            setRadFrequency(getNumRadFrequency() - 1);
         } else {
             setRadFrequency(freq - 1);
         }
     }
 
-    public int getRadVolume() {
-        return radVolume;
-    }
-
-    public int setRadVolume(int volume) {
-        if (volume >= 0 && volume <= 100) {
-            radVolume = volume;
-        }
-        return radFrequency;
-    }
-
     public void increaseVolume() {
         int volume = getRadVolume();
-        if (volume < 100) {
+        if (volume < getRadVolumeMax()) {
             setRadVolume(volume + 1);
         }
     }
-
     public void decreaseVolume() {
         int volume = getRadVolume();
-        if (volume > 1) {
+        if (volume > getRadVolumeMin()) {
             setRadVolume(volume - 1);
         }
     }
 
+
+
 }
+
